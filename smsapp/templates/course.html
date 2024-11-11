@@ -1,0 +1,42 @@
+{% extends "home.html" %} {% block main %}
+<div id="home" class="content-section"></div>
+
+<section class="action-checkbox">
+  <h2 class="center">Course Details</h2>
+  <div class="mar">
+    <a href="{% url 'addcourse' %}" class="addstudent">Add Course</a>
+  </div>
+  <div class="flex">
+    {% for course in courses %}
+    
+    <div class="student-card">
+      <p><strong>Course Name:</strong> {{ course.coursename }}</p>
+      <p><strong>Duration:</strong> {{ course.duration }}</p>
+      <p><strong>Specialties:</strong> {{ course.Specialties }}</p>
+      <p><strong>Description:</strong> {{ course.description }}</p>
+
+      <div class="btns">
+        <button class="btn "><a href="{% url 'editcourse' course.docId %}" >Edit</a></button>
+        <button class="btn deleteCourseBtn">Delete</button> 
+      </div>
+      {% comment %} hidd {% endcomment %}
+      <div class="popup courseDeleteModal">
+          {% csrf_token %}
+          <div class="popup-content">
+            <p>Are you sure you want to delete the course?</p>
+            <button type="submit"><a href="{% url 'deletecourse' course.docId %}" >Yes</a></button>
+            <button type="button" onclick="closeCoursePopup(event)">No</button>
+          </div>
+        </form>
+      </div>
+      
+      {% comment %} hidd {% endcomment %}
+    </div>
+    {% empty %}
+    <p>No courses available.</p>
+    {% endfor %}
+  </div>
+
+  
+</section>
+{% endblock %}
