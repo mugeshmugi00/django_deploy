@@ -10,4 +10,5 @@ admins = db.admins
 studentcoll = db.students
 # cours coll
 courscoll = db.course
-
+# cloud data base
+# mongodb+srv://mugi84219:mugesh2002@cluster0.3dld5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0

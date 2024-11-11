@@ -36,13 +36,18 @@ def reg(req):
         password = query.get("password")
         confirmpassword = query.get("confirmpassword")
         
-        username_pattern = re.compile(r"^(?=.*[a-zA-Z])[a-zA-Z0-9_]{5,15}$")
-        password_pattern = re.compile(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$")
+
+        # Updated username pattern: only alphabetic characters and underscores allowed, 5-15 characters long
+        username_pattern = re.compile(r"^[a-zA-Z_]{5,15}$")
+
+        # Updated password pattern: at least one lowercase, one uppercase, one digit, and one '@' character, 8 or more characters long
+        password_pattern = re.compile(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@])[a-zA-Z\d@]{8,}$")
+
         
         if(not username_pattern.match(username)):
-            return render(req,"reg.html",{"usernameerror":"letters, digits, and underscores length to between 5 and 15 characters!"})
+            return render(req,"reg.html",{"usernameerror":"only allows letters (uppercase and lowercase) and underscores, and the length must be between 5 and 15 characters.!"})
         if(not password_pattern.match(password)):
-            return render(req,"reg.html",{"passwordError":"Requires at least one lowercase letter, one uppercase letter, and one digit. minimum length of 8 character!"})
+            return render(req,"reg.html",{"passwordError":"requires at least one lowercase letter, one uppercase letter, one digit, and one @ character, and it should be at least 8 characters long!"})
         
         if(confirmpassword == password):
            
